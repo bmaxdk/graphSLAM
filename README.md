@@ -23,6 +23,7 @@ Graph SLAM can hancdle large number of features.
 
 ### Graphs
 ![alt text][image1]
+
 m1 : features
 
 x0, x1 : poses
@@ -42,10 +43,12 @@ probability of normal distribution for this measurement:
 $P(X=x) = \frac{1}{\sigma\sqrt{2\pi}}e^{-\frac{(z_{1}-(x_{0}+m_{1}))^2}{2\sigma^2}}$
 
 The robot takes a measurement of a feature, $m_{1}$, and it returns a distance of 1.8 metres.
+
 ![alt text][image3]
 
 With two measurements, the most probable location of the feature can be represented by the product of the two probabilities assume second measurement is 2.2.
 
 $P(X=x) = \frac{1}{\sigma\sqrt{2\pi}}e^{-\frac{(z_{1}-(x_{0}+m1_{1}))^2}{2\sigma^2}} * \frac{1}{\sigma\sqrt{2\pi}}e^{-\frac{(z_{1}-(x_{0}+m2_{1}))^2}{2\sigma^2}}$
+
 ![alt text][image4]
 
