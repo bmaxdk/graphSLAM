@@ -24,13 +24,28 @@ Graph SLAM can hancdle large number of features.
 ### Graphs
 ![alt text][image1]
 m1 : features
+
 x0, x1 : poses
 
 ### Front-End vs Back-End
+![alt text][image2]
+
 `Front-End`: The front-end of GraphSLAM looks at how to construct the graph using the odometry and sensory measurements collected by the robot. This includes interpreting sensory data, creating the graph and continuing to add nodes and edges to it as the robot traverses the environment. Identifying whether features in the environment have been previously seen.
+
 
 `Back-End`: The input to the back-end is the completed graph with all of the constraints. The output is the most probably configuration of robot poses and map features. Graph Optimization process that takes all the constraints and find the system configuration that produces the smallest error.
 
-Graph optimiation, the process of minimizing the error present in all of the constraints in the graph. Application usage is maximum likelihood estimation (MLE) to structure and solve the optimization problem for the graph.
+Graph optimiation, the process of minimizing the error present in all of the constraints in the graph. Application usage is `maximum likelihood estimation (MLE)` to structure and solve the optimization problem for the graph.
 
+probability of normal distribution for this measurement: 
+
+$P(X=x) = \frac{1}{\sigma\sqrt{2\pi}}e^{-\frac{(z_{1}-(x_{0}+m_{1}))^2}{2\sigma^2}}$
+
+The robot takes a measurement of a feature, $m_{1}$, and it returns a distance of 1.8 metres.
+![alt text][image3]
+
+With two measurements, the most probable location of the feature can be represented by the product of the two probabilities assume second measurement is 2.2.
+
+$P(X=x) = \frac{1}{\sigma\sqrt{2\pi}}e^{-\frac{(z_{1}-(x_{0}+m1_{1}))^2}{2\sigma^2}} * \frac{1}{\sigma\sqrt{2\pi}}e^{-\frac{(z_{1}-(x_{0}+m2_{1}))^2}{2\sigma^2}}$
+![alt text][image4]
 
