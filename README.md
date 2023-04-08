@@ -12,14 +12,14 @@ Graph SLAM can hancdle large number of features.
 [image8]: img/a8.png "img8"
 
 
-[image9]: img/b1.png "img9"
-[image10]: img/b2.png "img10"
-[image11]: img/b3.png "img11"
-[image12]: img/b4.png "img12"
-[image13]: img/b5.png "img13"
+[image9]: img/a9.png "img9"
+[image10]: img/a10.png "img10"
+[image11]: img/a11.png "img11"
+[image12]: img/a12.png "img12"
+<!-- [image13]: img/.png "img13"
 [image14]: img/b6.png "img14"
 [image15]: img/b7.png "img15"
-
+ -->
 
 ### Graphs
 ![alt text][image1]
@@ -124,6 +124,8 @@ To linearize each constraint, $\mu_{t-1} or \mu_{t}$ to linearize. Apply only th
 
 
 ## RTAB-Map (Real-Time Appeaarance-Based Mapping)
+![alt text][image7]
+
 Appaarance-Based SLAM means that the alogrithm uses data collected from vision sensors to localize the robot and map the environment. In this methods, a process called loop closure that is used to determine whether the robot has seen a location before.
 
 Loop closure is the process of finding a match between the current and previously visitd locations in SLAM. There are two types of loop closure detection: local and global.
@@ -131,9 +133,14 @@ Loop closure is the process of finding a match between the current and previousl
 Local: Many probabilistic SLAM methods use local loop closure detection where matches are found between a new observation and a limited map region. The size and location of this limited map region is determined by the uncertainty associated with the robot's position.
 
 Global: A new  location is compared with previously viewed locations. If no match is found the new location is added to memory.
+![alt text][image8]
+![alt text][image9]
+
 
 ### Bag-of-Words
 Loop closure is detected using a baof of words approach which commonly used in vision-based mapping.
+![alt text][image10]
+
 1. Extracting features from an image (Speeded Up Robust Features SURF) 
 2. Each feature has a descriptor associated with it. Feature descriptors are a unique and robust representation of the pixels that make up a feature. In SURF, the point of interests where the feature is located split into smaller square sub-regions. From these sub-regions, the pixel intensities in regions of regularly spaced sample points are calculated and compared. The differences between the sample points are used to categorize the sub-regions of the image.
 3. Similar features or synonyms are clustered together.
@@ -142,11 +149,14 @@ Loop closure is detected using a baof of words approach which commonly used in v
 6. Through this feature is linked to a word and can be referred to as a visual word.
 7. When all the images are quantized, the image is a bag of words.
 
+![alt text][image11]
 
 To compare all the images, a matching score is given to all images containing the same words.
 
 ### Memory Management Technique
 RTAB Mapping uses the memory management technique to limit the number of locations considered as candidates during loop closure detection. The overall strategy is to keep the most recent and frequenctly observed locations and the robots working memory (WM), and transfer the others into a long-term memory (LTM).
+
+![alt text][image12]
 
 
 When a new image is acquired, a new node is created in the Short-Term Memory (STM). When created node recall that features are extracted and compared to the vocabulary to find all of the words in the image, creating a bag of words for this node. STM has fixed size S and nodes in the STM are not considered during loop closure detection. When STM reaches S nodes, the oldest node is moved to wM to be considered for loop closure detection. In STM, there is a way to update step. The heuristic is based on the fact that to robot should remember areas where it's spent most of its time in. If two consecutive areas are similar, the weight of the first one increase by one and no new node is created for the second image. WM depends on fixed time limit T. When time to process = T, some nodes transfereed to LTM. If loop closure is detected, neighbors in the LTM of an old node can be transferred back to the WM which is process called retrieval.
