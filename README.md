@@ -126,3 +126,8 @@ To linearize each constraint, $\mu_{t-1} or \mu_{t}$ to linearize. Apply only th
 ## RTAB-Map (Real-Time Appeaarance-Based Mapping)
 Appaarance-Based SLAM means that the alogrithm uses data collected from vision sensors to localize the robot and map the environment. In this methods, a process called loop closure that is used to determine whether the robot has seen a location before.
 
+Loop closure is the process of finding a match between the current and previously visitd locations in SLAM. There are two types of loop closure detection: local and global.
+
+Local: Many probabilistic SLAM methods use local loop closure detection where matches are found between a new observation and a limited map region. The size and location of this limited map region is determined by the uncertainty associated with the robot's position.
+
+Global: A new  location is compared with previously viewed locations. If no match is found the new location is added to memory.
