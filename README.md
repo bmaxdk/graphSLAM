@@ -61,11 +61,17 @@ This previous are working with 1D graphs (forward or backwards)
 
 The equations for the contraints:
 
-`m-D measurement constraint`:  $(z_t - h(x_t, m_j))^T Q_t-1 (z_t - h(x_t, m_j))$
+`m-D measurement constraint`:  
+
+$(z_t - h(x_t, m_j))^T Q_t-1 (z_t - h(x_t, m_j))$
+
 
 where h() represent the `measurement function`, and $Q_{t}$ represent the `covariances of the measurement noise`.
 
-`n-D Motion constraint: $(x_t - g(u_t, x_{t-1}))^T R_{t-1}^{-1} (x_t - g(u_t, x_{t-1}))$
+`n-D Motion constraint`: 
+
+$(x_t - g(u_t, x_{t-1}))^T R_{t-1}^{-1} (x_t - g(u_t, x_{t-1}))$
+
 
 where g() represent the `motion function` and $R_{r}$ represent `motion noise`.
 
