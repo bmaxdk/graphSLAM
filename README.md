@@ -75,10 +75,10 @@ $(x_t - g(u_t, x_{t-1}))^T R_{t-1}^{-1} (x_t - g(u_t, x_{t-1}))$
 
 where g() represent the `motion function` and $R_{r}$ represent `motion noise`.
 
-The `multidimensional formula` for the sum of all constraints: $J_{GraphSLAM} = x_0^T Ω x_0 + ∑_{t}(x_{t} - g(u_{t}, x_{t-1}))^{T} R_{t}^{-1} (x_{t} - g(u_{t}, x_{t-1})) + ∑_{t} (z_{t} - h(x_{t}, m_{j}))^{T} Q_{t} (z_{t} - h(x_{t}, m_{j}))$
+The `multidimensional formula` for the sum of all constraints: $J_{GraphSLAM} = x_0^T \ohm x_0 + ∑_{t}(x_{t} - g(u_{t}, x_{t-1}))^{T} R_{t}^{-1} (x_{t} - g(u_{t}, x_{t-1})) + ∑_{t} (z_{t} - h(x_{t}, m_{j}))^{T} Q_{t} (z_{t} - h(x_{t}, m_{j}))$
 
 The first elements in the sum is the inital constraints. It sets the first robot pose to equal to the origin of the map. The `covariance`, $Ω_{0}$ represents complete confidence.
- $Ω_{0}$ =
+ $\ohm_{0}$ =
 
 ⎡∞ 0 0⎤
 
@@ -88,5 +88,25 @@ The first elements in the sum is the inital constraints. It sets the first robot
 
 ## Information Matrix and Vector
 ![alt text][image5]
+Through this information matrix and information vector have been populated, the path and map can be recovered by the following operation,
+
+$\mu = \ohm^{-1} ξ$
+
+where the result is a vector, $\mu$ defined over all poses and features, containng the best estimate for each. 
+
+### Topology
+In `linear graph`, if the robot moves environment without ever returning to a previously visited loaction than the topology is linear.Such a graph will produce a rather sparse matrix that, with some effort, can be reordered to move all non-zero elements to near the diagonal.
+
+In cyclical graph, a more common topology is cyclical, in which a robot revisits a location that it has been to before, after some time has passed. In such a case, features in the environment will be linked to multiple poses - ones that are not consecutive, but spaced far apart. The further apart in time that these poses are - the more problematic, as such a matrix cannot be reordered to move non-zero cells closer to the diagonal. The result is a matrix that is more computationally challenging to recover. However,  a `variable elimination` algorithm can be used to simplify the matrix, allowing for the inversion and product to be computed quicker.
+
+### Variable Elimination Algorithm
+Variable elimination can be applied iteratively to remove all cyclical constraints. Just like it sounds, variable elimination entails removing a variable (ex. feature) entirely from the graph and matrix. This can be done by adjusting existing links or adding new links to accommodate for those links that will be removed.
+
+After the previous image show above, the following step is elimation of m1. You can see that in this process the matrix will have five cells reset to zero (indicated in red), and four cells will have their values adjusted (indicated in green) to accommodate the variable elimination. Similarly, the information vector will have one cell removed and two adjusted.
+
+![alt text][image6]
+
+This process is repeated for all of the features, and in the end the matrix is defined over all robot poses. At this point, the same procedure as before can be applied $\mu = \ohm^{-1} ξ$
 
 
+## Nonlinear Constraints
