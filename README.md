@@ -111,3 +111,7 @@ This process is repeated for all of the features, and in the end the matrix is d
 
 
 ## Nonlinear Constraints
+
+$g(u_{t}, x_{t-1}) ≃ g(u_{t}, μ_{t-1}) + G_{t}(x_{t-1} - μ_{t-1})$
+
+$h(y_{t}) ≃ h(μ_{t}) + H^{i}_{t}(y_{t} - μ_{t})$
