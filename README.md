@@ -111,7 +111,13 @@ This process is repeated for all of the features, and in the end the matrix is d
 
 
 ## Nonlinear Constraints
+For nonlinear models in SLAM, most motion and measurement constraints are nonlinear, and must be linearized before they can be added to the information matrix and information vector. Therefore, apply the same procedure in the EKF Localization to linearize nonlinear constraints for SLAM.
+
+### Linearizing Constraints
+A linearization of the measurement and motion constraints is 
 
 $g(u_{t}, x_{t-1}) ≃ g(u_{t}, μ_{t-1}) + G_{t}(x_{t-1} - μ_{t-1})$
 
 $h(y_{t}) ≃ h(μ_{t}) + H_{t}^{i} (y_{t} - μ_{t})$
+
+To linearize each constraint, $\mu_{t-1} or \mu_{t}$ to linearize. Apply only the motion constraints to create a pose estimate,[x_{0},...,x_{t}] , and use this primitive estimate in place of $\mu$ to linearize all of the constraints. Then, once all of the constraints are linearized and added to the matrix and vector, a solution can be computed as before, using $\mu = \ohm^{-1} ξ$
