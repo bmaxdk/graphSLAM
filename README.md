@@ -55,3 +55,27 @@ $P(X=x) = \frac{1}{\sigma\sqrt{2\pi}}e^{-\frac{(z_{1}-(x_{0}+m1_{1}))^2}{2\sigma
 
 $J_{GraphSLAM} =\sum_{t} {\frac{(x_{t}-(x_{t-1}+u_{t}))^2}{2\sigma^2}} + \sum_{t} {\frac{(z_{t}-(x_{t}+m_{t}))^2}{2\sigma^2}}$
 
+This previous are working with 1D graphs (forward or backwards)
+
+## Multi-Dimensional Graphs (n-D)
+
+The equations for the contraints:
+
+`m-D measurement constraint`:  $(z_t - h(x_t, m_j))^T Q_t-1 (z_t - h(x_t, m_j))$
+
+where h() represent the `measurement function`, and $Q_{t}$ represent the `covariances of the measurement noise`.
+
+`n-D Motion constraint: $(x_t - g(u_t, x_{t-1}))^T R_{t-1}^{-1} (x_t - g(u_t, x_{t-1}))$
+
+where g() represent the `motion function` and $R_{r}$ represent `motion noise`.
+
+The `multidimensional formula` for the sum of all constraints: $J_{GraphSLAM} = x_0^T Ω x_0 + ∑_{t}(x_{t} - g(u_{t}, x_{t-1}))^{T} R_{t}^{-1} (x_{t} - g(u_{t}, x_{t-1})) + ∑_{t} (z_{t} - h(x_{t}, m_{j}))^{T} Q_{t} (z_{t} - h(x_{t}, m_{j}))$
+
+The first elements in the sum is the inital constraints. It sets the first robot pose to equal to the origin of the map. The `covariance`, $Ω_{0}$ represents complete confidence.
+ $Ω_{0}$ =
+
+⎡∞ 0 0⎤
+
+⎢0 ∞ 0⎥
+
+⎣0 0 ∞⎦
