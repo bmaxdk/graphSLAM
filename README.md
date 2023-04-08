@@ -133,12 +133,14 @@ Loop closure is the process of finding a match between the current and previousl
 Local: Many probabilistic SLAM methods use local loop closure detection where matches are found between a new observation and a limited map region. The size and location of this limited map region is determined by the uncertainty associated with the robot's position.
 
 Global: A new  location is compared with previously viewed locations. If no match is found the new location is added to memory.
+
 ![alt text][image8]
 ![alt text][image9]
 
 
 ### Bag-of-Words
 Loop closure is detected using a baof of words approach which commonly used in vision-based mapping.
+
 ![alt text][image10]
 
 1. Extracting features from an image (Speeded Up Robust Features SURF) 
@@ -160,3 +162,10 @@ RTAB Mapping uses the memory management technique to limit the number of locatio
 
 
 When a new image is acquired, a new node is created in the Short-Term Memory (STM). When created node recall that features are extracted and compared to the vocabulary to find all of the words in the image, creating a bag of words for this node. STM has fixed size S and nodes in the STM are not considered during loop closure detection. When STM reaches S nodes, the oldest node is moved to wM to be considered for loop closure detection. In STM, there is a way to update step. The heuristic is based on the fact that to robot should remember areas where it's spent most of its time in. If two consecutive areas are similar, the weight of the first one increase by one and no new node is created for the second image. WM depends on fixed time limit T. When time to process = T, some nodes transfereed to LTM. If loop closure is detected, neighbors in the LTM of an old node can be transferred back to the WM which is process called retrieval.
+
+
+RTAB-Map supports 3 different graph optimizations: Tree-based network optimizer, or TORO, General Graph Optimization, or G2O and GTSAM (Smoothing and Mapping).
+
+All of these optimizations use node poses and link transformations as constraints. When a loop closure is detected, errors introduced by the odometry can be propagated to all links, correcting the map.
+
+Recall that Landmarks are used in the graph optimization process for other methods, whereas RTAB-Map doesn't use them. Only odometry constraints and loop closure constraints are optimized.
