@@ -121,3 +121,8 @@ $g(u_{t}, x_{t-1}) ≃ g(u_{t}, μ_{t-1}) + G_{t}(x_{t-1} - μ_{t-1})$
 $h(y_{t}) ≃ h(μ_{t}) + H_{t}^{i} (y_{t} - μ_{t})$
 
 To linearize each constraint, $\mu_{t-1} or \mu_{t}$ to linearize. Apply only the motion constraints to create a pose estimate,[x_{0},...,x_{t}] , and use this primitive estimate in place of $\mu$ to linearize all of the constraints. Then, once all of the constraints are linearized and added to the matrix and vector, a solution can be computed as before, using $\mu = \ohm^{-1} ξ$
+
+
+## RTAB-Map (Real-Time Appeaarance-Based Mapping)
+Appaarance-Based SLAM means that the alogrithm uses data collected from vision sensors to localize the robot and map the environment. In this methods, a process called loop closure that is used to determine whether the robot has seen a location before.
+
