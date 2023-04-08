@@ -88,6 +88,7 @@ The first elements in the sum is the inital constraints. It sets the first robot
 
 ## Information Matrix and Vector
 ![alt text][image5]
+
 Through this information matrix and information vector have been populated, the path and map can be recovered by the following operation,
 
 $\mu = \ohm^{-1} ξ$
@@ -97,7 +98,7 @@ where the result is a vector, $\mu$ defined over all poses and features, contain
 ### Topology
 In `linear graph`, if the robot moves environment without ever returning to a previously visited loaction than the topology is linear.Such a graph will produce a rather sparse matrix that, with some effort, can be reordered to move all non-zero elements to near the diagonal.
 
-In cyclical graph, a more common topology is cyclical, in which a robot revisits a location that it has been to before, after some time has passed. In such a case, features in the environment will be linked to multiple poses - ones that are not consecutive, but spaced far apart. The further apart in time that these poses are - the more problematic, as such a matrix cannot be reordered to move non-zero cells closer to the diagonal. The result is a matrix that is more computationally challenging to recover. However,  a `variable elimination` algorithm can be used to simplify the matrix, allowing for the inversion and product to be computed quicker.
+In `cyclical graph`, a more common topology is cyclical, in which a robot revisits a location that it has been to before, after some time has passed. In such a case, features in the environment will be linked to multiple poses - ones that are not consecutive, but spaced far apart. The further apart in time that these poses are - the more problematic, as such a matrix cannot be reordered to move non-zero cells closer to the diagonal. The result is a matrix that is more computationally challenging to recover. However,  a `variable elimination` algorithm can be used to simplify the matrix, allowing for the inversion and product to be computed quicker.
 
 ### Variable Elimination Algorithm
 Variable elimination can be applied iteratively to remove all cyclical constraints. Just like it sounds, variable elimination entails removing a variable (ex. feature) entirely from the graph and matrix. This can be done by adjusting existing links or adding new links to accommodate for those links that will be removed.
