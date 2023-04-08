@@ -85,3 +85,8 @@ The first elements in the sum is the inital constraints. It sets the first robot
 ⎢0 ∞ 0⎥
 
 ⎣0 0 ∞⎦
+
+## Information Matrix and Vector
+![alt text][image5]
+
+
